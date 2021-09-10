@@ -1,6 +1,5 @@
 package com.example.ch1;
 
-import com.example.tdd.ch1.Dollar;
 import com.example.tdd.ch1.Franc;
 import com.example.tdd.ch1.Money;
 import org.junit.jupiter.api.Test;
@@ -18,11 +17,9 @@ public class MoneyObjectTest {
 
     @Test
     void testEquality() {
-        assertTrue(Money.dollar(5).equals(new Dollar(5, null)));
-        assertFalse(Money.dollar(5).equals(new Dollar(6, null)));
-        assertTrue(Money.franc(5).equals(new Franc(5, null)));
-        assertFalse(Money.franc(5).equals(new Franc(6, null)));
-        assertFalse(Money.dollar(5).equals(new Franc(5, null)));
+        assertTrue(Money.franc(5).equals(Money.franc(5)));
+        assertFalse(Money.franc(5).equals(Money.franc(6)));
+        assertFalse(Money.dollar(5).equals(Money.franc(5)));
     }
 
     @Test
