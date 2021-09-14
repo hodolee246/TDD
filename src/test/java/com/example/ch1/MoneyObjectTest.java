@@ -1,6 +1,9 @@
 package com.example.ch1;
 
+import com.example.tdd.ch1.Bank;
+import com.example.tdd.ch1.Expression;
 import com.example.tdd.ch1.Money;
+import com.example.tdd.ch1.Sum;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,8 +39,26 @@ public class MoneyObjectTest {
 
     @Test
     void testSimpleAddition() {
-        Money sum = Money.dollar(5).plus(Money.dollar(5));
-        assertEquals(Money.dollar(10), sum);
+        Money five = Money.dollar(5);
+        Expression sum = five.plus(five);
+        Bank bank = new Bank();
+        Money reduced = bank.reduce(sum, "USD");
+        assertEquals(Money.dollar(10), reduced);
+    }
+
+    @Test
+    void testReducedSum() {
+        Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
+        Bank  bank = new Bank();
+        Money result = bank.reduce(sum, "USD");
+        assertEquals(Money.dollar(7), result);
+    }
+
+    @Test
+    void testReduceMoney() {
+        Bank bank = new Bank();
+        Money result = bank.reduce(Money.dollar(1), "USD");
+        assertEquals(Money.dollar(1), result);
     }
 
 }
