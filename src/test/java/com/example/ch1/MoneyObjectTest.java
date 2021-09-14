@@ -4,6 +4,7 @@ import com.example.tdd.ch1.Bank;
 import com.example.tdd.ch1.Expression;
 import com.example.tdd.ch1.Money;
 import com.example.tdd.ch1.Sum;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,6 +60,24 @@ public class MoneyObjectTest {
         Bank bank = new Bank();
         Money result = bank.reduce(Money.dollar(1), "USD");
         assertEquals(Money.dollar(1), result);
+    }
+
+    @Test
+    void testReduceMoneyDifferentCurrency() {
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money result = bank.reduce(Money.franc(2), "USD");
+        assertEquals(Money.dollar(1), result);
+    }
+
+    @Test
+    void testArrayEquals() {
+        assertArrayEquals(new Object[] {"abc"}, new Object[] {"abc"});
+    }
+
+    @Test
+    void testIdentityRate() {
+        assertEquals(1, new Bank().rate("USD", "USD"));
     }
 
 }
